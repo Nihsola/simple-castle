@@ -16,8 +16,6 @@ class GameScreen : KtxScreen {
     private val renderConfig = RenderConfig(guiConfig, commonConfig)
     private val gameConfig = GameConfig(guiConfig, commonConfig, physicConfig)
 
-    private val cameraService = commonConfig.cameraService
-
     private val screenConfigurator = ScreenConfigurator(
         listOf(
             commonConfig.cameraControlSystem,
@@ -37,7 +35,8 @@ class GameScreen : KtxScreen {
     private val disposables = screenConfigurator.disposables
 
     override fun resize(width: Int, height: Int) {
-        cameraService.resize(width, height)
+        commonConfig.cameraControlSystem.resize(width, height)
+        commonConfig.stageRectRenderSystem.resize(width, height)
     }
 
     override fun render(delta: Float) {
